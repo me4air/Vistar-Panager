@@ -28,6 +28,24 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         return backgroundMap
     }()
     
+    var plusButton: MappButton = {
+       let plusButton = MappButton(type: UIButtonType.custom) as MappButton
+       plusButton.theme = ListButtonTheme(buttonSize: 36, shadowRadius: 12, shadowOpacity: 0.25, imageName: "plusIcon")
+       return plusButton
+    }()
+    
+    var minusButton: MappButton = {
+        let plusButton = MappButton(type: UIButtonType.custom) as MappButton
+        plusButton.theme = ListButtonTheme(buttonSize: 36, shadowRadius: 12, shadowOpacity: 0.25, imageName: "minusButton")
+        return plusButton
+    }()
+    
+    var folowButton: MappButton = {
+        let plusButton = MappButton(type: UIButtonType.custom) as MappButton
+        plusButton.theme = ListButtonTheme(buttonSize: 36, shadowRadius: 12, shadowOpacity: 0.25, imageName: "folowButton")
+        return plusButton
+    }()
+    
     var listButton: UIButton = {
         let listButton = UIButton(type: UIButtonType.custom) as UIButton
         listButton.backgroundColor = UIColor.white
@@ -39,7 +57,6 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         listButton.layer.cornerRadius = buttonSize/2
         listButton.layer.shadowOpacity = 0.2
         listButton.setImage(UIImage(named: "list"), for: .normal)
-       // listButton.imageView?.tintColor = UIColor(displayP3Red: 200/255, green: 109/255, blue: 215/255, alpha: 1)
         return listButton
     }()
     
@@ -124,10 +141,26 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         print("List button tapped")
     }
     
+    @objc func plusButtonAction(_ sender:UIButton!)
+    {
+        print("Plus button tapped")
+    }
+    
+    @objc func folowButtonAction(_ sender:UIButton!)
+    {
+        print("Folow button tapped")
+    }
+    
+    @objc func minusButtonAction(_ sender:UIButton!)
+    {
+        print("Minus button tapped")
+    }
+    
     //UI Setup
     
     func setupLayout() {
         
+ 
         //map
         self.view.addSubview(backgroundMap)
         // Map constriants
@@ -139,6 +172,33 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         backgroundMap.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         backgroundMap.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         
+        //plus button
+
+        self.view.addSubview(plusButton)
+        plusButton.addTarget(self, action: #selector(self.plusButtonAction(_:)), for: .touchUpInside)
+        plusButton.translatesAutoresizingMaskIntoConstraints = false
+        plusButton.topAnchor.constraint(equalTo: backgroundMap.topAnchor, constant: 175).isActive = true
+        plusButton.rightAnchor.constraint(equalTo: backgroundMap.rightAnchor, constant: -40).isActive = true
+        plusButton.widthAnchor.constraint(equalToConstant: (plusButton.buttonSize)).isActive = true
+        plusButton.heightAnchor.constraint(equalToConstant: (plusButton.buttonSize)).isActive = true
+        
+        //folow button
+        self.view.addSubview(folowButton)
+        folowButton.addTarget(self, action: #selector(self.folowButtonAction(_:)), for: .touchUpInside)
+        folowButton.translatesAutoresizingMaskIntoConstraints = false
+        folowButton.topAnchor.constraint(equalTo: plusButton.bottomAnchor, constant: 40).isActive = true
+        folowButton.rightAnchor.constraint(equalTo: backgroundMap.rightAnchor, constant: -40).isActive = true
+        folowButton.widthAnchor.constraint(equalToConstant: (folowButton.buttonSize)).isActive = true
+        folowButton.heightAnchor.constraint(equalToConstant: (folowButton.buttonSize)).isActive = true
+        
+        //minus button
+        self.view.addSubview(minusButton)
+        minusButton.addTarget(self, action: #selector(self.minusButtonAction(_:)), for: .touchUpInside)
+        minusButton.translatesAutoresizingMaskIntoConstraints = false
+        minusButton.topAnchor.constraint(equalTo: folowButton.bottomAnchor, constant: 40).isActive = true
+        minusButton.rightAnchor.constraint(equalTo: backgroundMap.rightAnchor, constant: -40).isActive = true
+        minusButton.widthAnchor.constraint(equalToConstant: (plusButton.buttonSize)).isActive = true
+        minusButton.heightAnchor.constraint(equalToConstant: (plusButton.buttonSize)).isActive = true
         
         //List Button
         listButton.addTarget(self, action: #selector(self.listButtonAction(_:)), for: .touchUpInside)

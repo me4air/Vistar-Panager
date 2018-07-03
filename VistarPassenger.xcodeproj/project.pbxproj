@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
+		A0DE735B20EB9C820051C402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0DE735A20EB9C820051C402 /* Assets.xcassets */; };
 		A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E0C20E665EA00732C73 /* AppDelegate.swift */; };
 		A0E72E1520E665EA00732C73 /* Vistar_Panager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */; };
-		A0E72E1720E665EC00732C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E72E1620E665EC00732C73 /* Assets.xcassets */; };
 		A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */; };
 		A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E2120E6662000732C73 /* MainScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
+		A0DE735A20EB9C820051C402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		A0E72E0920E665EA00732C73 /* VistarPassenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VistarPassenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E72E0C20E665EA00732C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E72E1420E665EA00732C73 /* Vistar_Panager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vistar_Panager.xcdatamodel; sourceTree = "<group>"; };
-		A0E72E1620E665EC00732C73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0E72E1920E665EC00732C73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0E72E1B20E665EC00732C73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E72E2120E6662000732C73 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
@@ -58,9 +58,9 @@
 			children = (
 				A0E72E0C20E665EA00732C73 /* AppDelegate.swift */,
 				A0E72E2320E6662800732C73 /* View */,
-				A0E72E1620E665EC00732C73 /* Assets.xcassets */,
 				A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */,
 				A0E72E1B20E665EC00732C73 /* Info.plist */,
+				A0DE735A20EB9C820051C402 /* Assets.xcassets */,
 				A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */,
 			);
 			path = VistarPassenger;
@@ -133,8 +133,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DE735B20EB9C820051C402 /* Assets.xcassets in Resources */,
 				A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */,
-				A0E72E1720E665EC00732C73 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
