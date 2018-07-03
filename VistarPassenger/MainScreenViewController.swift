@@ -12,10 +12,12 @@ import MapKit
 class MainScreenViewController: UIViewController, UITextFieldDelegate {
 
     
-    var deactiveHightSearhBackroundAnchor: NSLayoutConstraint?
-    var activeHightSearhBackroundAnchor: NSLayoutConstraint?
-    var deactiveWidthSearhBackroundAnchor: NSLayoutConstraint?
-    var activeWidthSearhBackroundAnchor: NSLayoutConstraint?
+    var HightSearhBackroundAnchor: NSLayoutConstraint?
+    var WidthSearhBackroundAnchor: NSLayoutConstraint?
+    var searchTextLeftAligmentConstrain: NSLayoutConstraint?
+    
+    let searchBackgroundViewHight: CGFloat = 50.0
+    let searchBackgroundViewWidth: CGFloat = 284.0
     
     var backgroundMap: MKMapView = {
         let backgroundMap = MKMapView()
@@ -37,7 +39,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         listButton.layer.cornerRadius = buttonSize/2
         listButton.layer.shadowOpacity = 0.2
         listButton.setImage(UIImage(named: "list"), for: .normal)
-        listButton.imageView?.tintColor = UIColor(displayP3Red: 200/255, green: 109/255, blue: 215/255, alpha: 1)
+       // listButton.imageView?.tintColor = UIColor(displayP3Red: 200/255, green: 109/255, blue: 215/255, alpha: 1)
         return listButton
     }()
     
@@ -91,10 +93,10 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         // return NO to disallow editing.
-        deactiveHightSearhBackroundAnchor?.isActive = false
-        activeHightSearhBackroundAnchor?.isActive = true
-        deactiveWidthSearhBackroundAnchor?.isActive = false
-        activeWidthSearhBackroundAnchor?.isActive = true
+        HightSearhBackroundAnchor?.constant = view.frame.height-searchBackgroundViewHight-25-60-55
+        WidthSearhBackroundAnchor?.constant = view.frame.width
+        searchTextLeftAligmentConstrain?.isActive = true
+        searchBackgroundView.layer.cornerRadius = 10
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -105,15 +107,15 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // called when 'return' key pressed. return NO to ignore.
         print("TextField should return method called")
-        
-        deactiveHightSearhBackroundAnchor?.isActive = true
-        activeHightSearhBackroundAnchor?.isActive = false
-        deactiveWidthSearhBackroundAnchor?.isActive = true
-        activeWidthSearhBackroundAnchor?.isActive = false
+        HightSearhBackroundAnchor?.constant = searchBackgroundViewHight
+        WidthSearhBackroundAnchor?.constant = searchBackgroundViewWidth
+        searchTextLeftAligmentConstrain?.isActive = false
+        searchBackgroundView.layer.cornerRadius = 25
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
         textField.resignFirstResponder()
+
         return true
     }
     
@@ -122,7 +124,10 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         print("List button tapped")
     }
     
+    //UI Setup
+    
     func setupLayout() {
+        
         //map
         self.view.addSubview(backgroundMap)
         // Map constriants
@@ -148,26 +153,17 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         
         
         //searchView BG
-        let searchBackgroundViewHight: CGFloat = 50.0
-        let searchBackgroundViewWidth: CGFloat = 284.0
         self.view.addSubview(searchBackgroundView)
         // BG constriants
         searchBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         searchBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        deactiveWidthSearhBackroundAnchor = searchBackgroundView.widthAnchor.constraint(equalToConstant: searchBackgroundViewWidth)
-        deactiveWidthSearhBackroundAnchor?.isActive = true
-        
-        activeWidthSearhBackroundAnchor = searchBackgroundView.widthAnchor.constraint(equalToConstant: view.frame.width)
-        activeWidthSearhBackroundAnchor?.isActive = false
-        
-        deactiveHightSearhBackroundAnchor =  searchBackgroundView.heightAnchor.constraint(equalToConstant: searchBackgroundViewHight)
-        deactiveHightSearhBackroundAnchor?.isActive = true
-        
-        activeHightSearhBackroundAnchor =  searchBackgroundView.heightAnchor.constraint(equalToConstant: view.frame.height - searchBackgroundViewHight - 25)
-        activeHightSearhBackroundAnchor?.isActive = false
-    
-        
+        WidthSearhBackroundAnchor = searchBackgroundView.widthAnchor.constraint(equalToConstant: searchBackgroundViewWidth)
+        WidthSearhBackroundAnchor?.isActive = true
+
+        HightSearhBackroundAnchor =  searchBackgroundView.heightAnchor.constraint(equalToConstant: searchBackgroundViewHight)
+        HightSearhBackroundAnchor?.isActive = true
+
         searchBackgroundView.bottomAnchor.constraint(equalTo: listButton.topAnchor, constant: -25).isActive = true
         
         
@@ -176,8 +172,9 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         // image constriants
         searchImage.translatesAutoresizingMaskIntoConstraints = false
         searchImage.leftAnchor.constraint(equalTo: searchBackgroundView.leftAnchor, constant: 17).isActive = true
-        searchImage.centerYAnchor.constraint(equalTo: searchBackgroundView.centerYAnchor).isActive = true
-        
+        searchImage.topAnchor.constraint(equalTo: searchBackgroundView.topAnchor, constant: 12).isActive = true
+        //searchImage.centerYAnchor.constraint(equalTo: searchBackgroundView.centerYAnchor).isActive = true
+        searchImage.widthAnchor.constraint(equalToConstant: 16).isActive = true
         
         //searchView textField
         searchTextField.delegate = self
@@ -185,8 +182,13 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate {
         // TF constriants
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.centerXAnchor.constraint(equalTo: searchBackgroundView.centerXAnchor).isActive = true
-        searchTextField.centerYAnchor.constraint(equalTo: searchBackgroundView.centerYAnchor).isActive = true
-        searchTextField.leftAnchor.constraintGreaterThanOrEqualToSystemSpacingAfter(searchImage.rightAnchor, multiplier: 2).isActive = true
+        searchTextField.topAnchor.constraint(equalTo: searchBackgroundView.topAnchor, constant: 12).isActive = true
+        searchTextField.bottomAnchor.constraint(equalTo: searchBackgroundView.bottomAnchor, constant: 12)
+        //searchTextField.centerYAnchor.constraint(equalTo: searchBackgroundView.centerYAnchor).isActive = true
+        searchTextLeftAligmentConstrain = searchTextField.leftAnchor.constraint(equalTo: searchImage.rightAnchor, constant: 10)
+        searchTextLeftAligmentConstrain?.isActive = false
+        
+       // searchTextField.leftAnchor.constraintGreaterThanOrEqualToSystemSpacingAfter(searchImage.rightAnchor, multiplier: 2).isActive = true
     }
     
 }
