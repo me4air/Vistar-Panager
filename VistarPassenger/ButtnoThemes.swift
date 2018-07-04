@@ -41,8 +41,27 @@ struct ListButtonTheme: ButtonTheme {
     }
 }
 
-class MappButton: UIButton {
+struct SettingsButtonTheme: ButtonTheme {
+    var backgroundColor: UIColor = .clear
+    var buttonSize: CGFloat
+    var cornerRadius: CGFloat = 0
+    var maskToBounds: Bool = false
+    var shadowColor: UIColor = .clear
+    var shadowOfset: CGSize = CGSize(width: 0.0, height: 0.0)
+    var shadowRadius: CGFloat
+    var shadowOpacity: Float
+    var imageName: String
     
+    init(buttonSize: CGFloat , shadowRadius: CGFloat , shadowOpacity: Float , imageName: String){
+        self.buttonSize = buttonSize
+        self.cornerRadius = buttonSize/2
+        self.shadowRadius = shadowRadius
+        self.shadowOpacity = shadowOpacity
+        self.imageName = imageName
+    }
+}
+
+class MappButton: UIButton {
     var buttonSize: CGFloat = 0
     
     var theme: ButtonTheme? {
@@ -64,5 +83,7 @@ class MappButton: UIButton {
             self.setImage(UIImage(named: theme.imageName), for: .normal)
         }
     }
+    
+    
     
 }
