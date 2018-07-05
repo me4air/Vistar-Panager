@@ -15,12 +15,13 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     
     
-    
     var HightSearhBackroundAnchor: NSLayoutConstraint?
     var WidthSearhBackroundAnchor: NSLayoutConstraint?
     var searchTextLeftAligmentConstrain: NSLayoutConstraint?
     var searchTableViewHightConstraint: NSLayoutConstraint?
     var searchTableViewWidthConstraint: NSLayoutConstraint?
+    var listButtonWidthConstraint: NSLayoutConstraint?
+    var listButtonHightConstraint: NSLayoutConstraint?
     
     let searchBackgroundViewHight: CGFloat = 50.0
     let searchBackgroundViewWidth: CGFloat = 284.0
@@ -40,6 +41,15 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         let label = UILabel()
         label.text = "Димитрова"
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.textColor = #colorLiteral(red: 0.485354497, green: 0.4649236618, blue: 0.5, alpha: 1)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let cityLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Воронеж"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = #colorLiteral(red: 0.485354497, green: 0.4649236618, blue: 0.5, alpha: 1)
         label.textAlignment = .center
         return label
@@ -139,6 +149,8 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         super.viewWillAppear(animated)
     }
     
+    //Text Field actions
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         // return NO to disallow editing.
         HightSearhBackroundAnchor?.constant = view.frame.height-searchBackgroundViewHight-25-60-55
@@ -147,6 +159,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         searchTableViewHightConstraint?.constant = view.frame.height-searchBackgroundViewHight-25-120
         searchTextLeftAligmentConstrain?.isActive = true
         searchBackgroundView.layer.cornerRadius = 10
+        searchBackgroundView.backgroundColor = #colorLiteral(red: 0.8900301588, green: 0.9106767022, blue: 0.9776729061, alpha: 1)
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -163,6 +176,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         searchTableViewHightConstraint?.constant = 0
         searchTextLeftAligmentConstrain?.isActive = false
         searchBackgroundView.layer.cornerRadius = 25
+        searchBackgroundView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -171,9 +185,20 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         return true
     }
     
+    //Butons Actions
+    
     @objc func listButtonAction(_ sender:UIButton!)
     {
+        listButtonHightConstraint?.constant -= 2
+        listButtonWidthConstraint?.constant -= 2
         print("List button tapped")
+    }
+    
+    @objc func listButtonTouchesBigins(_ sender:UIButton!)
+    {
+        listButtonHightConstraint?.constant += 2
+        listButtonWidthConstraint?.constant += 2
+        print("List button tached")
     }
     
     @objc func plusButtonAction(_ sender:UIButton!)
@@ -198,16 +223,47 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     //Table view
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
-        cell.textLabel?.text = "test"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! BusStopTableViewCell
+        cell.busStopName.text = "Name"
+        cell.busStopDescription.text = "2'nd Name"
+        //cell.textLabel?.text = "test"
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        let headerLabel: UILabel = {
+            let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            label.textColor = #colorLiteral(red: 0.1801168672, green: 0.1729121925, blue: 0.1873215419, alpha: 1)
+            label.textAlignment = .left
+            return label
+        }()
+        if (section == 1) {
+            headerLabel.text = "Все остановки"
+        } else {
+            headerLabel.text = "Вы недавно искали"
+        }
+        headerView.addSubview(headerLabel)
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 5).isActive = true
+        headerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 15).isActive = true
+        headerView.backgroundColor = #colorLiteral(red: 0.9598072652, green: 0.9598072652, blue: 0.9598072652, alpha: 1)
+        return headerView
+    }
     
     // MapKIT
     
@@ -275,13 +331,18 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         
         //List Button
         listButton.addTarget(self, action: #selector(self.listButtonAction(_:)), for: .touchUpInside)
+        listButton.addTarget(self, action: #selector(self.listButtonTouchesBigins(_:)), for: .touchDown)
         self.view.addSubview(listButton)
         // List Button constriants
         listButton.translatesAutoresizingMaskIntoConstraints = false
         listButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         listButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -55).isActive = true
-        listButton.widthAnchor.constraint(equalToConstant: listButton.buttonSize).isActive = true
-        listButton.heightAnchor.constraint(equalToConstant: listButton.buttonSize).isActive = true
+        
+        listButtonWidthConstraint = listButton.widthAnchor.constraint(equalToConstant: listButton.buttonSize)
+        listButtonHightConstraint = listButton.heightAnchor.constraint(equalToConstant: listButton.buttonSize)
+        
+        listButtonHightConstraint?.isActive = true
+        listButtonWidthConstraint?.isActive = true
         
         //infolabel
         
@@ -297,6 +358,14 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         busStopLabel.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 5).isActive = true
         busStopLabel.centerXAnchor.constraint(equalTo: backgroundMap.centerXAnchor).isActive = true
         
+        
+        //bus stop label
+        
+        self.view.addSubview(cityLabel)
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        cityLabel.bottomAnchor.constraint(equalTo: informationLabel.topAnchor, constant: -5).isActive = true
+        cityLabel.centerXAnchor.constraint(equalTo: backgroundMap.centerXAnchor).isActive = true
+        
         //searchView BG
         self.view.addSubview(searchBackgroundView)
         // BG constriants
@@ -306,7 +375,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         WidthSearhBackroundAnchor?.isActive = true
         HightSearhBackroundAnchor =  searchBackgroundView.heightAnchor.constraint(equalToConstant: searchBackgroundViewHight)
         HightSearhBackroundAnchor?.isActive = true
-        searchBackgroundView.bottomAnchor.constraint(equalTo: listButton.topAnchor, constant: -25).isActive = true
+        searchBackgroundView.bottomAnchor.constraint(equalTo: backgroundMap.bottomAnchor, constant: -135).isActive = true
         
         
         //searchView image
@@ -332,7 +401,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         //table view
         searchTableView.delegate = self
         searchTableView.dataSource = self
-        searchTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        searchTableView.register(BusStopTableViewCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(searchTableView)
         searchTableView.translatesAutoresizingMaskIntoConstraints = false
         //searchBackgroundView.addSubview(searchTableView)

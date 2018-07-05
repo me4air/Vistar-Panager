@@ -7,23 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */; };
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
-		A0DE735B20EB9C820051C402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0DE735A20EB9C820051C402 /* Assets.xcassets */; };
 		A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E0C20E665EA00732C73 /* AppDelegate.swift */; };
 		A0E72E1520E665EA00732C73 /* Vistar_Panager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */; };
 		A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */; };
 		A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E2120E6662000732C73 /* MainScreenViewController.swift */; };
+		A0FC1B0520EE227E00700388 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0FC1B0420EE227E00700388 /* Media.xcassets */; };
+		A0FC1B0720EE237D00700388 /* NetworckMangager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC1B0620EE237D00700388 /* NetworckMangager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopTableViewCell.swift; sourceTree = "<group>"; };
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
-		A0DE735A20EB9C820051C402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		A0E72E0920E665EA00732C73 /* VistarPassenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VistarPassenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E72E0C20E665EA00732C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E72E1420E665EA00732C73 /* Vistar_Panager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vistar_Panager.xcdatamodel; sourceTree = "<group>"; };
 		A0E72E1920E665EC00732C73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0E72E1B20E665EC00732C73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E72E2120E6662000732C73 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		A0FC1B0420EE227E00700388 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A0FC1B0620EE237D00700388 /* NetworckMangager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworckMangager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,10 +61,11 @@
 			isa = PBXGroup;
 			children = (
 				A0E72E0C20E665EA00732C73 /* AppDelegate.swift */,
+				A0FC1B0820EE238A00700388 /* viewModel */,
 				A0E72E2320E6662800732C73 /* View */,
 				A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */,
+				A0FC1B0420EE227E00700388 /* Media.xcassets */,
 				A0E72E1B20E665EC00732C73 /* Info.plist */,
-				A0DE735A20EB9C820051C402 /* Assets.xcassets */,
 				A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */,
 			);
 			path = VistarPassenger;
@@ -70,9 +75,18 @@
 			isa = PBXGroup;
 			children = (
 				A0E72E2120E6662000732C73 /* MainScreenViewController.swift */,
+				A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */,
 				A0DE735820EB84E00051C402 /* ButtnoThemes.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		A0FC1B0820EE238A00700388 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A0FC1B0620EE237D00700388 /* NetworckMangager.swift */,
+			);
+			name = viewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0DE735B20EB9C820051C402 /* Assets.xcassets in Resources */,
+				A0FC1B0520EE227E00700388 /* Media.xcassets in Resources */,
 				A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,8 +160,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0E72E1520E665EA00732C73 /* Vistar_Panager.xcdatamodeld in Sources */,
+				A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */,
 				A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */,
 				A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */,
+				A0FC1B0720EE237D00700388 /* NetworckMangager.swift in Sources */,
 				A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +300,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N92YQJ4YN3;
 				INFOPLIST_FILE = "$(SRCROOT)/VistarPassenger/Info.plist";
@@ -302,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N92YQJ4YN3;
 				INFOPLIST_FILE = "$(SRCROOT)/VistarPassenger/Info.plist";
