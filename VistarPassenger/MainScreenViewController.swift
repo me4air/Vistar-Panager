@@ -9,10 +9,10 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Siesta
 
-class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
-    
-    
+class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ResourceObserver {
+
     
     
     var HightSearhBackroundAnchor: NSLayoutConstraint?
@@ -23,10 +23,12 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     var listButtonWidthConstraint: NSLayoutConstraint?
     var listButtonHightConstraint: NSLayoutConstraint?
     
+    
     let searchBackgroundViewHight: CGFloat = 50.0
     let searchBackgroundViewWidth: CGFloat = 284.0
     
     let searchTableView = UITableView()
+    
     
     let informationLabel: UILabel = {
         let label = UILabel()
@@ -136,7 +138,14 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         super.viewDidLoad()
         setupLayout()
         localManger.requestWhenInUseAuthorization()
+        BusStopAPI.sharedInstance.getBusStops().addObserver(self)
+        //BusStopAPI.sharedInstance.busPing().addObserver(self)
     }
+    
+    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
+      // print(resource.jsonDict["hash"])
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -145,8 +154,9 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
+        BusStopAPI.sharedInstance.getBusStops().load(using: BusStopAPI.sharedInstance.getBusStops().request(.post, json: ["regionId":"36"]))
+      // BusStopAPI.sharedInstance.busPing().load(using: BusStopAPI.sharedInstance.busPing().request(.post, json: ["regionId":"36" , "fromStopId": ["3654"] , "toStopId": ["3654"]] ))
     }
     
     //Text Field actions
@@ -189,15 +199,15 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     @objc func listButtonAction(_ sender:UIButton!)
     {
-        listButtonHightConstraint?.constant -= 2
-        listButtonWidthConstraint?.constant -= 2
+        listButtonHightConstraint?.constant += 2
+        listButtonWidthConstraint?.constant += 2
         print("List button tapped")
     }
     
     @objc func listButtonTouchesBigins(_ sender:UIButton!)
     {
-        listButtonHightConstraint?.constant += 2
-        listButtonWidthConstraint?.constant += 2
+        listButtonHightConstraint?.constant -= 2
+        listButtonWidthConstraint?.constant -= 2
         print("List button tached")
     }
     
@@ -416,6 +426,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     }
     
 }
+
 
 /*// TEXT FIELD EXTENSION
  extension MainScreenViewController: UITextFieldDelegate {

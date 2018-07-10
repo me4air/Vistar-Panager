@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01BA64120EE57D200220247 /* SiestaUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01BA63F20EE57D200220247 /* SiestaUI.framework */; };
+		A01BA64220EE57D200220247 /* Siesta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01BA64020EE57D200220247 /* Siesta.framework */; };
+		A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01BA64420EE5A3D00220247 /* BusStopAPI.swift */; };
 		A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */; };
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
 		A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E0C20E665EA00732C73 /* AppDelegate.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A01BA63F20EE57D200220247 /* SiestaUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SiestaUI.framework; path = Carthage/Build/iOS/SiestaUI.framework; sourceTree = "<group>"; };
+		A01BA64020EE57D200220247 /* Siesta.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Siesta.framework; path = Carthage/Build/iOS/Siesta.framework; sourceTree = "<group>"; };
+		A01BA64420EE5A3D00220247 /* BusStopAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopAPI.swift; sourceTree = "<group>"; };
 		A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopTableViewCell.swift; sourceTree = "<group>"; };
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
 		A0E72E0920E665EA00732C73 /* VistarPassenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VistarPassenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,17 +41,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01BA64120EE57D200220247 /* SiestaUI.framework in Frameworks */,
+				A01BA64220EE57D200220247 /* Siesta.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A01BA63E20EE57D200220247 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A01BA64020EE57D200220247 /* Siesta.framework */,
+				A01BA63F20EE57D200220247 /* SiestaUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A0E72E0020E665EA00732C73 = {
 			isa = PBXGroup;
 			children = (
 				A0E72E0B20E665EA00732C73 /* VistarPassenger */,
 				A0E72E0A20E665EA00732C73 /* Products */,
+				A01BA63E20EE57D200220247 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +80,7 @@
 			children = (
 				A0FC1B1A20EE4D7600700388 /* Model */,
 				A0E72E0C20E665EA00732C73 /* AppDelegate.swift */,
+				A01BA64420EE5A3D00220247 /* BusStopAPI.swift */,
 				A0E72E2320E6662800732C73 /* View */,
 				A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */,
 				A0FC1B0420EE227E00700388 /* Media.xcassets */,
@@ -99,6 +118,7 @@
 				A0E72E0520E665EA00732C73 /* Sources */,
 				A0E72E0620E665EA00732C73 /* Frameworks */,
 				A0E72E0720E665EA00732C73 /* Resources */,
+				A01BA64320EE57E600220247 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -154,6 +174,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A01BA64320EE57E600220247 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Siesta.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SiestaUI.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A0E72E0520E665EA00732C73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -163,6 +201,7 @@
 				A0FC1B1920EE39C700700388 /* BusStopModel.swift in Sources */,
 				A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */,
 				A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */,
+				A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */,
 				A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */,
 				A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */,
 			);
@@ -303,6 +342,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N92YQJ4YN3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/VistarPassenger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -322,6 +365,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N92YQJ4YN3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/VistarPassenger/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
