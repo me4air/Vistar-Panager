@@ -11,24 +11,48 @@ import MapKit
 import CoreLocation
 import Siesta
 
-class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ResourceObserver {
+enum MapUserLocationType :String {
+    case free
+    case focus
+    case folow
+}
 
+class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ResourceObserver {    
     
+    // MARK: - Varibels
+    
+    var mapUserLocationType = MapUserLocationType.free
     
     var HightSearhBackroundAnchor: NSLayoutConstraint?
     var WidthSearhBackroundAnchor: NSLayoutConstraint?
     var searchTextLeftAligmentConstrain: NSLayoutConstraint?
-    var searchTableViewHightConstraint: NSLayoutConstraint?
     var searchTableViewWidthConstraint: NSLayoutConstraint?
     var listButtonWidthConstraint: NSLayoutConstraint?
     var listButtonHightConstraint: NSLayoutConstraint?
-    
-    
     let searchBackgroundViewHight: CGFloat = 50.0
     let searchBackgroundViewWidth: CGFloat = 284.0
     
-    let searchTableView = UITableView()
+    var localManger = CLLocationManager.init()
     
+    var busArivalsResourse: Resource? {
+        didSet {
+            oldValue?.removeObservers(ownedBy: self)
+            busArivalsResourse?
+                .addObserver(self)
+                .loadIfNeeded()
+        }
+    }
+    
+    var nearbleBusStop: String!{
+        didSet{
+            busArivalsResourse = BusStopAPI.sharedInstance.busArivalsData(for: "36", startBusStopId: nearbleBusStop, endBusStopID: nearbleBusStop)
+        }
+    }
+    
+    var busArivals: [Dictionary<String, Any>] = [[:]]
+    // MARK: - UI_Varibels
+    
+    var searchTableView : UITableView? = nil // UITableView()
     
     let informationLabel: UILabel = {
         let label = UILabel()
@@ -57,8 +81,6 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         return label
     }()
     
-    var localManger = CLLocationManager.init()
-    
     var backgroundMap: MKMapView = {
         let backgroundMap = MKMapView()
         backgroundMap.mapType = MKMapType.standard
@@ -85,7 +107,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     var folowButton: MappButton = {
         let folowButton = MappButton(type: UIButtonType.custom) as MappButton
-        folowButton.theme = ListButtonTheme(buttonSize: 36, shadowRadius: 7, shadowOpacity: 0.2, imageName: "folowButton")
+        folowButton.theme = ListButtonTheme(buttonSize: 36, shadowRadius: 7, shadowOpacity: 0.2, imageName: "folowButtonFree")
         return folowButton
     }()
     
@@ -100,7 +122,6 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         settingsButton.theme = SettingsButtonTheme(buttonSize: 36, shadowRadius: 0, shadowOpacity: 0, imageName: "settings")
         return settingsButton
     }()
-    
     
     var searchBackgroundView: UIView = {
         let searchBackgroundView = UIView()
@@ -133,17 +154,16 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         return searchImage
     }()
     
+    // MARK: - Life_syckle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         localManger.requestWhenInUseAuthorization()
-        BusStopAPI.sharedInstance.getBusStops().addObserver(self)
+        //BusStopAPI.sharedInstance.getBusStops().addObserver(self)
+        // BusStopAPI.sharedInstance.getBusStops().loadIfNeeded()
         //BusStopAPI.sharedInstance.busPing().addObserver(self)
-    }
-    
-    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
-      // print(resource.jsonDict["hash"])
+       // BusStopAPI.sharedInstance.busPing().loadIfNeeded()
     }
     
     
@@ -155,22 +175,34 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        BusStopAPI.sharedInstance.getBusStops().load(using: BusStopAPI.sharedInstance.getBusStops().request(.post, json: ["regionId":"36"]))
-      // BusStopAPI.sharedInstance.busPing().load(using: BusStopAPI.sharedInstance.busPing().request(.post, json: ["regionId":"36" , "fromStopId": ["3654"] , "toStopId": ["3654"]] ))
+        nearbleBusStop = "3654"
+        // BusStopAPI.sharedInstance.getBusStops().load(using: BusStopAPI.sharedInstance.getBusStops().request(.post, json: ["regionId":"36"]))
+        // BusStopAPI.sharedInstance.busPing().load(using: BusStopAPI.sharedInstance.busPing().request(.post, json: ["regionId":"36" , "fromStopId": ["3654"] , "toStopId": ["3654"]] ))
     }
     
-    //Text Field actions
+    
+    // MARK: - Networking
+    
+    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
+        // print(resource.jsonDict["hash"])
+       // print(resource.latestData)
+        busArivals = resource.jsonDict["busArrival"] as? [[String: Any]] ?? []
+        print(busArivals)
+    }
+    
+    // MARK: - Text Field actions
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         // return NO to disallow editing.
+        configurateTableView()
         HightSearhBackroundAnchor?.constant = view.frame.height-searchBackgroundViewHight-25-60-55
         WidthSearhBackroundAnchor?.constant = view.frame.width
-        searchTableViewWidthConstraint?.constant = view.frame.width
-        searchTableViewHightConstraint?.constant = view.frame.height-searchBackgroundViewHight-25-120
         searchTextLeftAligmentConstrain?.isActive = true
-        searchBackgroundView.layer.cornerRadius = 10
-        searchBackgroundView.backgroundColor = #colorLiteral(red: 0.8900301588, green: 0.9106767022, blue: 0.9776729061, alpha: 1)
+        searchTableViewWidthConstraint?.constant = view.frame.width
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.searchTableView!.alpha = 1.0
+            self.searchBackgroundView.layer.cornerRadius = 10
+            self.searchBackgroundView.backgroundColor = #colorLiteral(red: 0.8900301588, green: 0.9106767022, blue: 0.9776729061, alpha: 1)
             self.view.layoutIfNeeded()
         }, completion: nil)
         print("TextField should begin editing method called")
@@ -183,47 +215,81 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         HightSearhBackroundAnchor?.constant = searchBackgroundViewHight
         WidthSearhBackroundAnchor?.constant = searchBackgroundViewWidth
         searchTableViewWidthConstraint?.constant = searchBackgroundViewWidth
-        searchTableViewHightConstraint?.constant = 0
         searchTextLeftAligmentConstrain?.isActive = false
-        searchBackgroundView.layer.cornerRadius = 25
-        searchBackgroundView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
-        }, completion: nil)
+            self.searchBackgroundView.layer.cornerRadius = 25
+            self.searchBackgroundView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self.searchTableView?.alpha = 0.0
+        }) { (animation) in
+            self.searchTableView!.removeFromSuperview()
+            self.searchTableView = nil
+        }
         textField.resignFirstResponder()
         
         return true
     }
     
-    //Butons Actions
+    // MARK: - Butons Actions
     
     @objc func listButtonAction(_ sender:UIButton!)
     {
         listButtonHightConstraint?.constant += 2
         listButtonWidthConstraint?.constant += 2
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        nearbleBusStop = "3654"
         print("List button tapped")
     }
     
     @objc func listButtonTouchesBigins(_ sender:UIButton!)
     {
-        listButtonHightConstraint?.constant -= 2
-        listButtonWidthConstraint?.constant -= 2
+        self.listButtonHightConstraint?.constant -= 2
+        self.listButtonWidthConstraint?.constant -= 2
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
         print("List button tached")
     }
     
     @objc func plusButtonAction(_ sender:UIButton!)
     {
         print("Plus button tapped")
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+            self.backgroundMap.camera.altitude -= 200
+        }, completion: nil)
+        
     }
     
     @objc func folowButtonAction(_ sender:UIButton!)
     {
         print("Folow button tapped")
+        switch mapUserLocationType {
+        case .free:
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.folowButton.setImage(UIImage(named: "folowButton"), for: .normal)
+            }, completion: nil)
+            mapUserLocationType = .focus
+        case .focus:
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.folowButton.transform = CGAffineTransform(rotationAngle: -0.767945)
+            }, completion: nil)
+            mapUserLocationType = .folow
+        case .folow:
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.folowButton.transform = CGAffineTransform(rotationAngle: 0.0)
+                self.folowButton.setImage(UIImage(named: "folowButtonFree"), for: .normal)
+            }, completion: nil)
+            mapUserLocationType = .free
+        }
+        
     }
     
     @objc func minusButtonAction(_ sender:UIButton!)
     {
         print("Minus button tapped")
+        backgroundMap.camera.altitude += 200
     }
     
     @objc func settingsButtonAction(_ sender:UIButton!)
@@ -231,7 +297,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         print("settings button tapped")
     }
     
-    //Table view
+    // MARK: - Table view
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -275,7 +341,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         return headerView
     }
     
-    // MapKIT
+    // MARK: -  MapKIT
     
     var isInitiallyZoomedToUserLocation: Bool = false
     
@@ -286,7 +352,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         }
     }
     
-    //UI Setup
+    // MARK: - UI Setup
     
     func setupLayout() {
         
@@ -406,23 +472,22 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         searchTextField.bottomAnchor.constraint(equalTo: searchBackgroundView.bottomAnchor, constant: 12)
         searchTextLeftAligmentConstrain = searchTextField.leftAnchor.constraint(equalTo: searchImage.rightAnchor, constant: 10)
         searchTextLeftAligmentConstrain?.isActive = false
-        
-        
+    }
+    
+    func configurateTableView(){
         //table view
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        searchTableView.register(BusStopTableViewCell.self, forCellReuseIdentifier: "cell")
-        self.view.addSubview(searchTableView)
-        searchTableView.translatesAutoresizingMaskIntoConstraints = false
-        //searchBackgroundView.addSubview(searchTableView)
-        searchTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 5).isActive = true
-        searchTableView.centerXAnchor.constraint(equalTo: searchBackgroundView.centerXAnchor).isActive = true
-        //searchTableView.bottomAnchor.constraint(equalTo: searchBackgroundView.bottomAnchor, constant: 0).isActive = true
-        searchTableViewWidthConstraint = searchTableView.widthAnchor.constraint(equalToConstant: searchBackgroundViewWidth)
+        searchTableView = UITableView()
+        searchTableView!.delegate = self
+        searchTableView!.dataSource = self
+        searchTableView!.register(BusStopTableViewCell.self, forCellReuseIdentifier: "cell")
+        searchTableView!.alpha = 0.0
+        self.searchBackgroundView.addSubview(searchTableView!)
+        searchTableView!.translatesAutoresizingMaskIntoConstraints = false
+        searchTableView!.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 5).isActive = true
+        searchTableView!.centerXAnchor.constraint(equalTo: searchBackgroundView.centerXAnchor).isActive = true
+        searchTableView!.bottomAnchor.constraint(equalTo: searchBackgroundView.bottomAnchor, constant: 0).isActive = true
+        searchTableViewWidthConstraint = searchTableView!.widthAnchor.constraint(equalToConstant: searchBackgroundViewWidth)
         searchTableViewWidthConstraint?.isActive = true
-        searchTableViewHightConstraint = searchTableView.heightAnchor.constraint(equalToConstant: 0)
-        searchTableViewHightConstraint?.isActive = true
-        
     }
     
 }

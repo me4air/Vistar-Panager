@@ -17,15 +17,21 @@ class BusStopAPI {
     private let service = Service(baseURL: baseURL, standardTransformers: [.text, .json] )
     
     private init() {
-        SiestaLog.Category.enabled = [.network, .observers, .pipeline]
+        SiestaLog.Category.enabled = [.network, .observers, .pipeline, .staleness]
+        service.configure("**") {
+            $0.expirationTime = 20 // 60s * 60m = 1 hour
+        }
     }
     
     func getBusStops() -> Resource {
-        return service.resource("/stoplist")
+        return service.resource("/stop/list")
+        .withParam("regionId", "36")
     }
     
-    func busPing() -> Resource {
-        return service.resource("/arrivaltimeslist")
-
+    func busArivalsData(for regionId: String, startBusStopId: String, endBusStopID: String) -> Resource {
+        return service.resource("/timearrival/list")
+        .withParam("regionId", regionId)
+        .withParam("fromStopId", startBusStopId)
+        .withParam("toStopId", endBusStopID)
     }
 }
