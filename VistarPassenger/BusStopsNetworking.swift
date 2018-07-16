@@ -38,10 +38,11 @@ class BusStopsNetworking: ResourceObserver {
             if UserDefaults.standard.object(forKey: "busHash") != nil {
                 if data.hash! != UserDefaults.standard.integer(forKey: "busHash") {
                     UserDefaults.standard.set(data.hash, forKey: "busHash")
-                    //REALM IT!
                 }
             }   else {
                 UserDefaults.standard.set(data.hash, forKey: "busHash")
+                let manager = RealmBusStopManager()
+                manager.writeBusStop(commonBusStops: Array(data.stops!.values))
             }
         }
     }

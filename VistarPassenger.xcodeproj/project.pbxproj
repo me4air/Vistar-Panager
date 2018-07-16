@@ -10,6 +10,7 @@
 		A01BA64120EE57D200220247 /* SiestaUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01BA63F20EE57D200220247 /* SiestaUI.framework */; };
 		A01BA64220EE57D200220247 /* Siesta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01BA64020EE57D200220247 /* Siesta.framework */; };
 		A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01BA64420EE5A3D00220247 /* BusStopAPI.swift */; };
+		A0243CDE20FCB9A8005D5F7F /* RealBusStopsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0243CDD20FCB9A8005D5F7F /* RealBusStopsManager.swift */; };
 		A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */; };
 		A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */; };
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
@@ -43,6 +44,7 @@
 		A01BA63F20EE57D200220247 /* SiestaUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SiestaUI.framework; path = Carthage/Build/iOS/SiestaUI.framework; sourceTree = "<group>"; };
 		A01BA64020EE57D200220247 /* Siesta.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Siesta.framework; path = Carthage/Build/iOS/Siesta.framework; sourceTree = "<group>"; };
 		A01BA64420EE5A3D00220247 /* BusStopAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopAPI.swift; sourceTree = "<group>"; };
+		A0243CDD20FCB9A8005D5F7F /* RealBusStopsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealBusStopsManager.swift; sourceTree = "<group>"; };
 		A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopTableViewCell.swift; sourceTree = "<group>"; };
 		A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopsNetworking.swift; sourceTree = "<group>"; };
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				A0FC1B1820EE39C700700388 /* BusStopModel.swift */,
+				A0243CDD20FCB9A8005D5F7F /* RealBusStopsManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */,
 				A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */,
 				A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */,
+				A0243CDE20FCB9A8005D5F7F /* RealBusStopsManager.swift in Sources */,
 				A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -161,10 +161,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         super.viewDidLoad()
         setupLayout()
         localManger.requestWhenInUseAuthorization()
-        //BusStopAPI.sharedInstance.getBusStops().addObserver(self)
-        // BusStopAPI.sharedInstance.getBusStops().loadIfNeeded()
-        //BusStopAPI.sharedInstance.busPing().addObserver(self)
-       // BusStopAPI.sharedInstance.busPing().loadIfNeeded()
+        busStopsNetworker.getBusStops(cityIdent: "36")
     }
     
     
@@ -176,21 +173,10 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // nearbleBusStop = "3654"
-        // BusStopAPI.sharedInstance.getBusStops().load(using: BusStopAPI.sharedInstance.getBusStops().request(.post, json: ["regionId":"36"]))
-        // BusStopAPI.sharedInstance.busPing().load(using: BusStopAPI.sharedInstance.busPing().request(.post, json: ["regionId":"36" , "fromStopId": ["3654"] , "toStopId": ["3654"]] ))
+
     }
     
     
-  /*  // MARK: - Networking
-    
-    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
-
-        if let data: BusStopsResponce = resource.typedContent() {
-            print ("FFFF")
-            print (data)
-        }
-    } */
     
     // MARK: - Text Field actions
     
@@ -241,7 +227,6 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
-        busStopsNetworker.getBusStops(cityIdent: "36")
         print("List button tapped")
     }
     
