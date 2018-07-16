@@ -11,10 +11,9 @@
 		A01BA64220EE57D200220247 /* Siesta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01BA64020EE57D200220247 /* Siesta.framework */; };
 		A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01BA64420EE5A3D00220247 /* BusStopAPI.swift */; };
 		A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */; };
-		A0D61F5E20F7775E00DFABC9 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D61F5D20F7775E00DFABC9 /* NetworkLayer.swift */; };
+		A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */; };
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
 		A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E0C20E665EA00732C73 /* AppDelegate.swift */; };
-		A0E72E1520E665EA00732C73 /* Vistar_Panager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */; };
 		A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */; };
 		A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E2120E6662000732C73 /* MainScreenViewController.swift */; };
 		A0FC1B0520EE227E00700388 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0FC1B0420EE227E00700388 /* Media.xcassets */; };
@@ -45,11 +44,10 @@
 		A01BA64020EE57D200220247 /* Siesta.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Siesta.framework; path = Carthage/Build/iOS/Siesta.framework; sourceTree = "<group>"; };
 		A01BA64420EE5A3D00220247 /* BusStopAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopAPI.swift; sourceTree = "<group>"; };
 		A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopTableViewCell.swift; sourceTree = "<group>"; };
-		A0D61F5D20F7775E00DFABC9 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopsNetworking.swift; sourceTree = "<group>"; };
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
 		A0E72E0920E665EA00732C73 /* VistarPassenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VistarPassenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E72E0C20E665EA00732C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A0E72E1420E665EA00732C73 /* Vistar_Panager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vistar_Panager.xcdatamodel; sourceTree = "<group>"; };
 		A0E72E1920E665EC00732C73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0E72E1B20E665EC00732C73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E72E2120E6662000732C73 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +83,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A0243CDB20FCA279005D5F7F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				A01BA64420EE5A3D00220247 /* BusStopAPI.swift */,
+				A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		A0243CDC20FCAD5B005D5F7F /* common */ = {
+			isa = PBXGroup;
+			children = (
+				A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */,
+				A0FC1B0420EE227E00700388 /* Media.xcassets */,
+				A0E72E1B20E665EC00732C73 /* Info.plist */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
 		A0E72E0020E665EA00732C73 = {
 			isa = PBXGroup;
 			children = (
@@ -105,13 +122,11 @@
 		A0E72E0B20E665EA00732C73 /* VistarPassenger */ = {
 			isa = PBXGroup;
 			children = (
-				A0FC1B1A20EE4D7600700388 /* Model */,
 				A0E72E0C20E665EA00732C73 /* AppDelegate.swift */,
-				A01BA64420EE5A3D00220247 /* BusStopAPI.swift */,
+				A0FC1B1A20EE4D7600700388 /* Model */,
+				A0243CDB20FCA279005D5F7F /* Networking */,
 				A0E72E2320E6662800732C73 /* View */,
-				A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */,
-				A0FC1B0420EE227E00700388 /* Media.xcassets */,
-				A0E72E1B20E665EC00732C73 /* Info.plist */,
+				A0243CDC20FCAD5B005D5F7F /* common */,
 			);
 			path = VistarPassenger;
 			sourceTree = "<group>";
@@ -120,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				A0E72E2120E6662000732C73 /* MainScreenViewController.swift */,
-				A0D61F5D20F7775E00DFABC9 /* NetworkLayer.swift */,
 				A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */,
 				A0DE735820EB84E00051C402 /* ButtnoThemes.swift */,
 			);
@@ -131,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				A0FC1B1820EE39C700700388 /* BusStopModel.swift */,
-				A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -240,11 +253,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0E72E1520E665EA00732C73 /* Vistar_Panager.xcdatamodeld in Sources */,
 				A0FC1B1920EE39C700700388 /* BusStopModel.swift in Sources */,
 				A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */,
 				A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */,
-				A0D61F5E20F7775E00DFABC9 /* NetworkLayer.swift in Sources */,
+				A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */,
 				A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */,
 				A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */,
 				A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */,
@@ -449,19 +461,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		A0E72E1320E665EA00732C73 /* Vistar_Panager.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A0E72E1420E665EA00732C73 /* Vistar_Panager.xcdatamodel */,
-			);
-			currentVersion = A0E72E1420E665EA00732C73 /* Vistar_Panager.xcdatamodel */;
-			path = Vistar_Panager.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A0E72E0120E665EA00732C73 /* Project object */;
 }

@@ -11,7 +11,7 @@ import Foundation
 
 //Реализуем 2 Decodable структуры, чтобы swift сам распарсил из JSON
 
-struct busStopsResponce: Decodable {
+struct BusStopsResponce: Decodable {
     var status: String?
     var hash: Int?
     var stops: Dictionary<String, BusStop>?

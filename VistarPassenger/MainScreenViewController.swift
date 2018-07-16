@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-import Siesta
+//import Siesta
 
 enum MapUserLocationType :String {
     case free
@@ -17,7 +17,7 @@ enum MapUserLocationType :String {
     case folow
 }
 
-class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ResourceObserver {    
+class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource /*, ResourceObserver*/ {
     
     // MARK: - Varibels
     
@@ -34,7 +34,9 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     var localManger = CLLocationManager.init()
     
-    var busArivalsResourse: Resource? {
+    let busStopsNetworker = BusStopsNetworking()
+    
+    /*  var busArivalsResourse: Resource? {
         didSet {
             oldValue?.removeObservers(ownedBy: self)
             busArivalsResourse?
@@ -45,11 +47,10 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     var nearbleBusStop: String!{
         didSet{
-            busArivalsResourse = BusStopAPI.sharedInstance.busArivalsData(for: "36", startBusStopId: nearbleBusStop, endBusStopID: nearbleBusStop)
+            busArivalsResourse = BusStopAPI.sharedInstance.getBusStops(for: "36")
         }
-    }
+    }*/
     
-    var busArivals: [Dictionary<String, Any>] = [[:]]
     // MARK: - UI_Varibels
     
     var searchTableView : UITableView? = nil // UITableView()
@@ -175,20 +176,21 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        nearbleBusStop = "3654"
+       // nearbleBusStop = "3654"
         // BusStopAPI.sharedInstance.getBusStops().load(using: BusStopAPI.sharedInstance.getBusStops().request(.post, json: ["regionId":"36"]))
         // BusStopAPI.sharedInstance.busPing().load(using: BusStopAPI.sharedInstance.busPing().request(.post, json: ["regionId":"36" , "fromStopId": ["3654"] , "toStopId": ["3654"]] ))
     }
     
     
-    // MARK: - Networking
+  /*  // MARK: - Networking
     
     func resourceChanged(_ resource: Resource, event: ResourceEvent) {
-        // print(resource.jsonDict["hash"])
-       // print(resource.latestData)
-        busArivals = resource.jsonDict["busArrival"] as? [[String: Any]] ?? []
-        print(busArivals)
-    }
+
+        if let data: BusStopsResponce = resource.typedContent() {
+            print ("FFFF")
+            print (data)
+        }
+    } */
     
     // MARK: - Text Field actions
     
@@ -239,7 +241,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
-        nearbleBusStop = "3654"
+        busStopsNetworker.getBusStops(cityIdent: "36")
         print("List button tapped")
     }
     

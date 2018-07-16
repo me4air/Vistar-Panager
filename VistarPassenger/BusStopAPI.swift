@@ -14,18 +14,24 @@ private let baseURL = "https://passenger.vistar.su/VPArrivalServer"
 class BusStopAPI {
     
     static let sharedInstance = BusStopAPI()
-    private let service = Service(baseURL: baseURL, standardTransformers: [.text, .json] )
+    private let service = Service(baseURL: baseURL, standardTransformers: [.text] )
     
     private init() {
         SiestaLog.Category.enabled = [.network, .observers, .pipeline, .staleness]
         service.configure("**") {
             $0.expirationTime = 20 // 60s * 60m = 1 hour
         }
+        
+        let jsonDecoder = JSONDecoder()
+        service.configureTransformer("/stop/list") {
+        try jsonDecoder.decode(BusStopsResponce.self, from: $0.content)
+           // try jsonDecoder.decode(SearchResults<Restaurant>.self, from: $0.content).businesses
+        }
     }
     
-    func getBusStops() -> Resource {
+    func getBusStops(for RegionID: String) -> Resource {
         return service.resource("/stop/list")
-        .withParam("regionId", "36")
+        .withParam("regionId", RegionID)
     }
     
     func busArivalsData(for regionId: String, startBusStopId: String, endBusStopID: String) -> Resource {
