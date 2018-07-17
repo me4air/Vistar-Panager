@@ -32,4 +32,5 @@ class BusStopR: Object {
     @objc dynamic var comment = ""
     @objc dynamic var lat = 0.0
     @objc dynamic var lon = 0.0
+    @objc dynamic var isItFavorit = false
 }

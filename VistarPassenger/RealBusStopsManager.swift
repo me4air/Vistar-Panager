@@ -23,6 +23,7 @@ class RealmBusStopManager  {
         } else {realmBusStop.comment = ""}
         realmBusStop.lat = busStop.lat!
         realmBusStop.lon = busStop.lon!
+        realmBusStop.isItFavorit = false
         return realmBusStop
     }
     
