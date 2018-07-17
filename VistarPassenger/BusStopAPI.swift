@@ -25,7 +25,6 @@ class BusStopAPI {
         let jsonDecoder = JSONDecoder()
         service.configureTransformer("/stop/list") {
         try jsonDecoder.decode(BusStopsResponce.self, from: $0.content)
-           // try jsonDecoder.decode(SearchResults<Restaurant>.self, from: $0.content).businesses
         }
     }
     

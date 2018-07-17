@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-//import Siesta
+
 
 enum MapUserLocationType :String {
     case free
@@ -17,7 +17,7 @@ enum MapUserLocationType :String {
     case folow
 }
 
-class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource /*, ResourceObserver*/ {
+class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Varibels
     
@@ -36,20 +36,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     let busStopsNetworker = BusStopsNetworking()
     
-    /*  var busArivalsResourse: Resource? {
-        didSet {
-            oldValue?.removeObservers(ownedBy: self)
-            busArivalsResourse?
-                .addObserver(self)
-                .loadIfNeeded()
-        }
-    }
-    
-    var nearbleBusStop: String!{
-        didSet{
-            busArivalsResourse = BusStopAPI.sharedInstance.getBusStops(for: "36")
-        }
-    }*/
+    let searchTableViewVM = SearchTableViewViewModel()
     
     // MARK: - UI_Varibels
     
@@ -291,19 +278,24 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if section == 1{
+            return searchTableViewVM.getNumberOfRows()}
+        return 5
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! BusStopTableViewCell
-        cell.busStopName.text = "Name"
-        cell.busStopDescription.text = "2'nd Name"
-        //cell.textLabel?.text = "test"
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! BusStopTableViewCell
+        cell = searchTableViewVM.getCellForIndexPath(indexPath: indexPath)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

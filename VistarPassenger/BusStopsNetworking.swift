@@ -41,8 +41,7 @@ class BusStopsNetworking: ResourceObserver {
                 }
             }   else {
                 UserDefaults.standard.set(data.hash, forKey: "busHash")
-                let manager = RealmBusStopManager()
-                manager.writeBusStop(commonBusStops: Array(data.stops!.values))
+                RealmBusStopManager.sharedInstance.writeBusStop(commonBusStops: Array(data.stops!.values))
             }
         }
     }

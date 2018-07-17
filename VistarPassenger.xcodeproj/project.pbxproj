@@ -14,6 +14,7 @@
 		A097BECF20ECE5A600321C50 /* BusStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */; };
 		A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */; };
 		A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE735820EB84E00051C402 /* ButtnoThemes.swift */; };
+		A0E4762220FCE01600E75F78 /* SearchTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4762120FCE01600E75F78 /* SearchTableViewModel.swift */; };
 		A0E72E0D20E665EA00732C73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E0C20E665EA00732C73 /* AppDelegate.swift */; };
 		A0E72E1A20E665EC00732C73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E72E1820E665EC00732C73 /* LaunchScreen.storyboard */; };
 		A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E72E2120E6662000732C73 /* MainScreenViewController.swift */; };
@@ -48,6 +49,7 @@
 		A097BECE20ECE5A600321C50 /* BusStopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopTableViewCell.swift; sourceTree = "<group>"; };
 		A0D61F5D20F7775E00DFABC9 /* BusStopsNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopsNetworking.swift; sourceTree = "<group>"; };
 		A0DE735820EB84E00051C402 /* ButtnoThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtnoThemes.swift; sourceTree = "<group>"; };
+		A0E4762120FCE01600E75F78 /* SearchTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewModel.swift; sourceTree = "<group>"; };
 		A0E72E0920E665EA00732C73 /* VistarPassenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VistarPassenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E72E0C20E665EA00732C73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E72E1920E665EC00732C73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,6 +106,22 @@
 			name = common;
 			sourceTree = "<group>";
 		};
+		A0E4762320FCE01E00E75F78 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A0E4762120FCE01600E75F78 /* SearchTableViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		A0E4762420FCE04F00E75F78 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				A0243CDD20FCB9A8005D5F7F /* RealBusStopsManager.swift */,
+			);
+			name = DataBase;
+			sourceTree = "<group>";
+		};
 		A0E72E0020E665EA00732C73 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				A0E72E0C20E665EA00732C73 /* AppDelegate.swift */,
+				A0E4762420FCE04F00E75F78 /* DataBase */,
+				A0E4762320FCE01E00E75F78 /* ViewModel */,
 				A0FC1B1A20EE4D7600700388 /* Model */,
 				A0243CDB20FCA279005D5F7F /* Networking */,
 				A0E72E2320E6662800732C73 /* View */,
@@ -147,7 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				A0FC1B1820EE39C700700388 /* BusStopModel.swift */,
-				A0243CDD20FCB9A8005D5F7F /* RealBusStopsManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -262,6 +281,7 @@
 				A0D61F5E20F7775E00DFABC9 /* BusStopsNetworking.swift in Sources */,
 				A01BA64520EE5A3D00220247 /* BusStopAPI.swift in Sources */,
 				A0E72E2220E6662000732C73 /* MainScreenViewController.swift in Sources */,
+				A0E4762220FCE01600E75F78 /* SearchTableViewModel.swift in Sources */,
 				A0243CDE20FCB9A8005D5F7F /* RealBusStopsManager.swift in Sources */,
 				A0DE735920EB84E00051C402 /* ButtnoThemes.swift in Sources */,
 			);

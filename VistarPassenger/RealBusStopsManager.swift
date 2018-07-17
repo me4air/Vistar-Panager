@@ -12,6 +12,8 @@ import RealmSwift
 class RealmBusStopManager  {
     
     
+    static public let sharedInstance = RealmBusStopManager()
+    
     private func makeBusStop(busStop: BusStop) -> BusStopR {
         let realmBusStop = BusStopR()
         realmBusStop.id = busStop.id!
@@ -22,6 +24,10 @@ class RealmBusStopManager  {
         realmBusStop.lat = busStop.lat!
         realmBusStop.lon = busStop.lon!
         return realmBusStop
+    }
+    
+    private init () {
+        
     }
     
     func writeBusStop(commonBusStops: [BusStop]) {
@@ -38,6 +44,12 @@ class RealmBusStopManager  {
             let busStopResult = realm.objects(BusStopR.self)
             print(busStopResult)
         }
+    }
+    
+    func getBusStops() ->  Results<BusStopR> {
+        let realm = try! Realm()
+        let busStpos = realm.objects(BusStopR.self).sorted(byKeyPath: "name")
+        return busStpos
     }
     
     
