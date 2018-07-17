@@ -40,7 +40,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     
     // MARK: - UI_Varibels
     
-    var searchTableView : UITableView? = nil // UITableView()
+    var searchTableView : UITableView? = nil
     
     let informationLabel: UILabel = {
         let label = UILabel()
@@ -291,7 +291,7 @@ class MainScreenViewController: UIViewController, UITextFieldDelegate, MKMapView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

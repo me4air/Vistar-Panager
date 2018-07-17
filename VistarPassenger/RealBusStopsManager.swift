@@ -35,9 +35,11 @@ class RealmBusStopManager  {
             let realm = try! Realm()
             for i in 0...commonBusStops.count-1{
                 if commonBusStops.count > 0 {
-                    let busStop = self.makeBusStop(busStop: commonBusStops[i])
-                    try! realm.write {
-                        realm.add(busStop)
+                    if commonBusStops[i].name != "" {
+                        let busStop = self.makeBusStop(busStop: commonBusStops[i])
+                        try! realm.write {
+                            realm.add(busStop)
+                        }
                     }
                 }
             }
