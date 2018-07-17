@@ -19,7 +19,7 @@ class BusStopAPI {
     private init() {
         SiestaLog.Category.enabled = [.network, .observers, .pipeline, .staleness]
         service.configure("**") {
-            $0.expirationTime = 20 // 60s * 60m = 1 hour
+            $0.expirationTime = 20 
         }
         
         let jsonDecoder = JSONDecoder()

@@ -1,0 +1,17 @@
+{
+  "commitish" : "1.4.0",
+  "iOS" : [
+    {
+      "name" : "SiestaUI",
+      "hash" : "caaf18ed454434fbf6ab3c16c22c8b8ae6b152ebbe55debacf9ac6a031e461e3"
+    },
+    {
+      "name" : "SiestaUI",
+      "hash" : "caaf18ed454434fbf6ab3c16c22c8b8ae6b152ebbe55debacf9ac6a031e461e3"
+    },
+    {
+      "name" : "Siesta",
+      "hash" : "a0de4c2e32e98d7bbace3d6e25dd243243064167ac5ac763be4eeee03a2b3d74"
+    }
+  ]
+}
